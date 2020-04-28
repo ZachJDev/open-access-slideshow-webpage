@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Art | Culture | Slideshow</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="content">
+      <div id="infoBar">
+        <div id="search">
+          <h2>Art and Culture Slideshow</h2>
+          <form id="myForm">
+            <input type="text" name="searchTerm" id="searchTerm" />
+            <!-- <input type="text" name="Bob" value="Bob"> -->
+            <input type="submit" value="Send" />
+          </form>
+        </div>
+        <div id="picInfo">
+          <ul>
+            <li>
+              <p id="titleI">Title: <span id="title"></span></p>
+            </li>
+            <li>
+              <p id="artistI">Artist: <span id="artist"></span></p>
+            </li>
+            <li>
+              <p id="dateI">Date: <span id="date"></span></p>
+            </li>
+            <li>
+              <p id="sourceI">Source: <span id="source"></span></p>
+            </li>
+            <li>
+              <p id="usageI">Usage: <span id="usage"></span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slideshow"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
