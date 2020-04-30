@@ -67,10 +67,13 @@ function slideshow(array) {
 
 function loadImages(array) {
   let i = 0;
-  while (i < array.length) {
+  insertSlide(array[i], i);
+  i++
+  let addSlides = setInterval(() => {
     insertSlide(array[i], i);
     i++;
-  }
+    if(i >= array.length) clearInterval(addSlides);
+  }, 3000)
 }
 
 function insertSlide(image, i) {
