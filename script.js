@@ -50,21 +50,25 @@ form.addEventListener("submit", (event) => {
         return res.text();
       })
       .then((data) => {
-
-        let pauseButton = document.getElementById("pause");
+        let playButton = document.getElementById("playButton");
+        let pauseButton = document.getElementById("pauseButton");
+        let togglePlay = document.getElementById("play_pause");
         pauseButton.style.opacity = "100";
         data = JSON.parse(data);
         loadImages(data);
         startSlideshow(data);
         let playing = true;
-        pauseButton.addEventListener("click", () => {
+        togglePlay.addEventListener("click", () => {
           if (playing) {
             clearInterval(slideshow);
             playing = false;
-            console.log(currentSlideIndex);
+            playButton.style.opacity = "100";
+            pauseButton.style.opacity = "0";
           } else {
             playing = true;
             startSlideshow(data, currentSlideIndex);
+            pauseButton.style.opacity = "100";
+            playButton.style.opacity = "0";
           }
         });
       });
