@@ -53,7 +53,9 @@ form.addEventListener("submit", (event) => {
 function slideshow(array) {
   let i = 0;
   let slides = document.querySelector(".slideshow").children;
-
+  console.log(slides);
+  slides[i].classList.add("active"); // Set new slide as active
+  i++;
   slowAdd = setInterval(() => {
     slides[i].classList.add("active"); // Set new slide as active
     updateInfo(array[i]); // Display the metadata for the slide
