@@ -1,5 +1,6 @@
 let form = document.getElementById("myForm");
 let slideshow, infoBarOpacityTimer, addSlides; // Timers, as to easily remove them later
+var currentSlideIndex = 0;
 
 let titleInfo = document.getElementById("title"),
   artistInfo = document.getElementById("artist"),
@@ -29,7 +30,7 @@ let picInfo = document.querySelector("#picInfo");
 // Holds main functionality -- submit AJAX request and start slideshow
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  
+
   if (slideshow) {
     clearInterval(addSlides);
     clearInterval(slideshow); // Stops the currently running slideshow
@@ -49,18 +50,23 @@ form.addEventListener("submit", (event) => {
         return res.text();
       })
       .then((data) => {
+
         let pauseButton = document.getElementById("pause");
         pauseButton.style.opacity = "100";
         data = JSON.parse(data);
         loadImages(data);
         startSlideshow(data);
         let playing = true;
-        pauseButton.addEventListener("click");
-        {
+        pauseButton.addEventListener("click", () => {
           if (playing) {
-            clearInterval();
+            clearInterval(slideshow);
+            playing = false;
+            console.log(currentSlideIndex);
+          } else {
+            playing = true;
+            startSlideshow(data, currentSlideIndex);
           }
-        }
+        });
       });
   })();
 });
@@ -68,6 +74,10 @@ form.addEventListener("submit", (event) => {
 
 function startSlideshow(array, i = 0) {
   let slides = document.querySelector(".slideshow").children;
+  if(i > 0) {
+    slides[i].classList.remove("active");
+    i++
+  }
   slides[i].classList.add("active"); // Set new slide as active
   updateInfo(array[i]);
   i++;
@@ -76,7 +86,7 @@ function startSlideshow(array, i = 0) {
 
 function showSlideshow(slides, array, i) {
   slideshow = setInterval(() => {
-
+    currentSlideIndex = i;
     slides[i].classList.add("active"); // Set new slide as active
     updateInfo(array[i]); // Display the metadata for the slide
     if (i == 0 && slides.length > 1)
@@ -91,7 +101,7 @@ function loadImages(array) {
   let i = 0;
   insertSlide(array, i);
   i++;
-   addSlides = setInterval(() => {
+  addSlides = setInterval(() => {
     insertSlide(array, i);
     i++;
     if (i >= array.length) clearInterval(addSlides);
