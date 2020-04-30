@@ -1,5 +1,5 @@
 let form = document.getElementById("myForm");
-let slowAdd, infoBarOpacityTimer; // As to easily remove them later
+let slideshow, infoBarOpacityTimer, addSlides; // Timers, as to easily remove them later
 
 let titleInfo = document.getElementById("title"),
   artistInfo = document.getElementById("artist"),
@@ -10,15 +10,17 @@ let titleInfo = document.getElementById("title"),
 //Control how the infoBar works
 (() => {
   const infoBar = document.getElementById("infoBar");
+  const body = document.querySelector("body");
   infoBarTimeout();
-  infoBar.addEventListener("mouseover", () => {
+  body.addEventListener("mousemove", () => {
     infoBar.style.opacity = "100%";
     clearInterval(infoBarOpacityTimer);
+    infoBarTimeout();
+    // console.log("ou");
   });
-  infoBar.addEventListener("mouseleave", infoBarTimeout);
 })();
 
-let picInfo = document.querySelector("#picInfo"); 
+let picInfo = document.querySelector("#picInfo");
 
 // picInfo.addEventListener("click", () => {
 //   picInfo.classList.toggle("show");  // Not yet implemented
@@ -27,8 +29,12 @@ let picInfo = document.querySelector("#picInfo");
 // Holds main functionality -- submit AJAX request and start slideshow
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  
+  if (slideshow) {
+    clearInterval(addSlides);
+    clearInterval(slideshow); // Stops the currently running slideshow
+  }
   let slides = document.querySelector(".slideshow");
-  if (slowAdd) clearInterval(slowAdd); // Stops the currently running slideshow
   while (slides.hasChildNodes()) {
     slides.removeChild(slides.firstChild);
   }
@@ -43,50 +49,67 @@ form.addEventListener("submit", (event) => {
         return res.text();
       })
       .then((data) => {
+        let pauseButton = document.getElementById("pause");
+        pauseButton.style.opacity = "100";
         data = JSON.parse(data);
         loadImages(data);
-        slideshow(data);
+        startSlideshow(data);
+        let playing = true;
+        pauseButton.addEventListener("click");
+        {
+          if (playing) {
+            clearInterval();
+          }
+        }
       });
   })();
 });
 /*****************************Helper functions**************************************************/
-function slideshow(array) {
-  let i = 0;
+
+function startSlideshow(array, i = 0) {
   let slides = document.querySelector(".slideshow").children;
-  console.log(slides);
   slides[i].classList.add("active"); // Set new slide as active
+  updateInfo(array[i]);
   i++;
-  slowAdd = setInterval(() => {
+  showSlideshow(slides, array, i);
+}
+
+function showSlideshow(slides, array, i) {
+  slideshow = setInterval(() => {
+
     slides[i].classList.add("active"); // Set new slide as active
     updateInfo(array[i]); // Display the metadata for the slide
     if (i == 0 && slides.length > 1)
       slides[slides.length - 1].classList.remove("active"); // Remove the active class from the last slide on repeat of slideshow
     if (i > 0) slides[i - 1].classList.remove("active"); //Remove the active class from previous slide normally
     i++;
-    if (i == slides.length) i = 0; // Wrap around back to the beginning once the end is reached
+    if (i == array.length) i = 0; // Wrap around back to the beginning once the end is reached
   }, 5000);
 }
 
 function loadImages(array) {
   let i = 0;
-  insertSlide(array[i], i);
-  i++
-  let addSlides = setInterval(() => {
-    insertSlide(array[i], i);
+  insertSlide(array, i);
+  i++;
+   addSlides = setInterval(() => {
+    insertSlide(array, i);
     i++;
-    if(i >= array.length) clearInterval(addSlides);
-  }, 3000)
+    if (i >= array.length) clearInterval(addSlides);
+  }, 3000);
 }
 
-function insertSlide(image, i) {
-  const body = document.querySelector(".slideshow");
-  body.insertAdjacentHTML(                                    // Insert the slide
+function insertSlide(array, i) {
+  const show = document.querySelector(".slideshow");
+  show.insertAdjacentHTML(
+    // Insert the slide
     "beforeend",
-    `<div class="slide"><img id=${i} src=${image.url}></div>`
+    `<div class="slide"><img id=${i} src=${array[i].url}></div>`
   );
   let newSlide = document.getElementById(i);
-  newSlide.addEventListener("error", () => { // Remove slide if error on image load
+  newSlide.addEventListener("error", () => {
+    // Remove slide if error on image load
     newSlide.parentElement.remove(0);
+    array.splice(i, 1);
   });
 }
 
