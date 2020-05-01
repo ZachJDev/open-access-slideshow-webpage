@@ -117,7 +117,7 @@ function insertSlide(array, i) {
   show.insertAdjacentHTML(
     // Insert the slide
     "beforeend",
-    `<div class="slide"><img id=${i} src=${array[i].url} alt ="Looks like it's taking a little longer than expected..."></div>`
+    `<div class="slide"><img id=${i} src=${array[i].url} alt ="${array[i].title}"></div>`
   );
   let newSlide = document.getElementById(i);
   newSlide.addEventListener("error", () => {
