@@ -109,7 +109,7 @@ function loadImages(array) {
     insertSlide(array, i);
     i++;
     if (i >= array.length) clearInterval(addSlides);
-  }, 3000);
+  }, 1000);
 }
 
 function insertSlide(array, i) {
@@ -117,7 +117,7 @@ function insertSlide(array, i) {
   show.insertAdjacentHTML(
     // Insert the slide
     "beforeend",
-    `<div class="slide"><img id=${i} src=${array[i].url}></div>`
+    `<div class="slide"><img id=${i} src=${array[i].url} alt ="Looks like it's taking a little longer than expected..."></div>`
   );
   let newSlide = document.getElementById(i);
   newSlide.addEventListener("error", () => {
