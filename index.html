@@ -7,40 +7,37 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
-      <div id="infoBar">
-        <div id="search">
-          <h2>Art and Culture Slideshow</h2>
-          <form id="myForm">
-            <input type="text" name="searchTerm" id="searchTerm" />
-            <!-- <input type="text" name="Bob" value="Bob"> -->
-            <input type="submit" value="Send" />
-          </form>
-        </div>
-        <div id="picInfo">
-          <ul>
-            <li>
-              <p id="titleI">Title: <span id="title"></span></p>
-            </li>
-            <li>
-              <p id="artistI">Artist: <span id="artist"></span></p>
-            </li>
-            <li>
-              <p id="dateI">Date: <span id="date"></span></p>
-            </li>
-            <li>
-              <p id="sourceI">Source: <span id="source"></span></p>
-            </li>
-            <li>
-              <p id="usageI">Usage: <span id="usage"></span></p>
-            </li>
-          </ul>
-        </div>
+    <div id="header">
+    <h2>Art and Culture Slideshow</h2>
+    <div id="search">
+      <form id="myForm">
+        <input type="text" name="searchTerm" id="searchTerm" />
+        <!-- <input type="text" name="Bob" value="Bob"> -->
+        <input type="submit" value="Send" />
+      </form>
       </div>
-
+    </div>
       <div class="slideshow"></div>
-      <div id="play_pause" ><img id="pauseButton" src="img/pause.svg" alt=""><img id="playButton" src="img/play.svg" alt=""></div>
-   
+        <div id="infoBar">
+          <ul>
+              <li>
+                <p id="titleI">Title: <span id="title"></span></p>
+              </li>
+              <li>
+                <p id="artistI">Artist: <span id="artist"></span></p>
+              </li>
+              <li> <div id="play_pause" ><img id="pauseButton" src="img/pause.svg" alt=""><img id="playButton" src="img/play.svg" alt=""></div></li>
+              <li>
+                <p id="dateI">Date: <span id="date"></span></p>
+              </li>
+              <li>
+                <p id="sourceI">Source: <span id="source"></span></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+   <script src="slideshow.js"></script>
     <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>
