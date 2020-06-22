@@ -4,7 +4,7 @@ A simple slideshow that pulls pictures and artworks from institutions with avail
 
 ## Using the Slideshow
 
-Please note that initial seraches may take awhile to return; The server spends a lot of time turned off, and it needs t spin back up. Subsequent searches will complete much more quickly.
+Please note that initial seraches may take awhile to return; The server spends a lot of time turned off, and it needs to spin back up. Subsequent searches will complete much more quickly.
 
 ## TODO
 
