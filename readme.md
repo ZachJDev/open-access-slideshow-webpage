@@ -4,11 +4,7 @@ A simple slideshow that pulls pictures and artworks from institutions with avail
 
 ## Using the Slideshow
 
-<<<<<<< HEAD
 Please note that initial searches may take awhile to return; the server spends a lot of time turned off, and it needs to spin back up. Subsequent searches will complete much more quickly.
-=======
-Please note that initial seraches may take awhile to return; The server spends a lot of time turned off, and it needs to spin back up. Subsequent searches will complete much more quickly.
->>>>>>> 5fb29dda660a6d768fb4ce03cf6de7f841e387a7
 
 ## TODO
 
